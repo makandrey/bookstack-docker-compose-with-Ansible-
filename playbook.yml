@@ -120,4 +120,4 @@
         policy: deny
     - name: "UFW - Enable and deny by default"
       ufw:
-        state: disable
+        state: disabled
