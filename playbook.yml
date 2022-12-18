@@ -2,7 +2,7 @@
 # BookStack in Docker
 ##################################################
 ---
-- hosts: all
+- hosts: bookstack
   become: true
   vars_files:
     - vars/default.yml
