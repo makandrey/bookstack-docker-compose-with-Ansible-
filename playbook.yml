@@ -15,7 +15,7 @@
 
     - name: Install required system packages
       apt: name={{ item }} state=latest update_cache=yes
-      loop: ['nginx', 'apt-transport-https', 'ca-certificates', 'curl', 
+      loop: ['apt-transport-https', 'ca-certificates', 'curl', 
       'software-properties-common', 'python3-pip', 'virtualenv',
       'python3-setuptools', 'python3-pip', 'sshpass']
     
