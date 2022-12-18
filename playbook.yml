@@ -64,6 +64,13 @@
       loop:
       - docker-compose.yml
       - mnt/nginx/
+    
+    - name: Copy Project Files
+      copy:
+        src: mnt/{{ item }}
+        dest: /bookstack/{{ item }}
+      loop:
+      - nginx/
 
     - name: Tear down existing services
       community.docker.docker_compose:
