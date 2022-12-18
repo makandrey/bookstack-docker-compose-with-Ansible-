@@ -48,10 +48,18 @@
         state: present
         group: bookstack
 
+    - name: Copy Project Files
+      copy:
+        src: ./{{ item }}
+        dest: {{project_dir}}{{ item }}
+      loop:
+      - docker-compose.yml
+      - mnt
+
     # Create ./mnt/bookstack/config directory
     - name: Create ./mnt/bookstack/config directory
       file:
-        dest: ./mnt/bookstack/config
+        dest: /bookstack/
         state: directory 
         owner: bookstack 
         group: bookstack 
