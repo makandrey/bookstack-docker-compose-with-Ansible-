@@ -67,7 +67,7 @@
     
     - name: Copy Project Files
       copy:
-        src: mnt/{{ item }}
+        src: ./{{ item }}
         dest: /bookstack/{{ item }}
       loop:
       - nginx/
