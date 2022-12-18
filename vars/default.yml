@@ -1,0 +1,9 @@
+---
+#mysql_root_password: "mysql_root_password"
+#http_host: "your_domain"
+#http_conf: "your_domain.conf"
+bookstack_port: "6875"
+http_port: "80"
+ssh_port: "22"
+https_port: "443"
+lsb_release: jammy

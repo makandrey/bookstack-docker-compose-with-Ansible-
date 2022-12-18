@@ -1,0 +1,106 @@
+##################################################
+# BookStack in Docker
+##################################################
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+
+    - name: Docker Install
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install Prerequisites
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'nginx', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+    
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu {{ lsb_release }} stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt: name={{ item }} update_cache=yes state=latest
+      loop: [ 'docker-ce', 'docker-compose' ]
+
+    - name: Ensure group "bookstack" with correct gid
+      group:
+        name: bookstack
+        state: present
+        gid: 3000
+
+    # Add user for BookStack service
+    - name: Add user for BookStack service
+      user: 
+        name: bookstack 
+        shell: /bin/false
+        state: present
+        group: bookstack
+
+    # Create ./mnt/bookstack/config directory
+    - name: Create ./mnt/bookstack/config directory
+      file:
+        dest: ./mnt/bookstack/config
+        state: directory 
+        owner: bookstack 
+        group: bookstack 
+        mode: 0770
+
+    # Deploy Docker Compose stack
+    - name: Deploy Docker Compose stack
+      community.docker.docker_compose:
+        project_src: ./
+        files:
+        - docker-compose.yml
+
+    ##
+    # UFW Configuration
+    ##
+    - name: "UFW - Allow HTTP on port {{ http_port }}"
+      ufw:
+        rule: allow
+        port: "{{ http_port }}"
+        proto: tcp
+    - name: "UFW - Allow SSH on port {{ ssh_port }}"
+      ufw:
+        rule: allow
+        port: "{{ ssh_port }}"
+        proto: tcp
+    - name: "UFW - Allow HTTPS on port {{ https_port }}"
+      ufw:
+        rule: allow
+        port: "{{ https_port }}"
+        proto: tcp
+      - name: "UFW - Allow BookStack port on {{ bookstack_port }}"
+      ufw:
+        rule: allow
+        port: "{{ bookstack_port }}"
+        proto: tcp
+    - name: "UFW - Deny incoming"
+      ufw:
+        direction: incoming
+        policy: deny
+    - name: "UFW - Allow outcomming"
+      ufw:    
+        direction: outgoing
+        policy: allow
+    - name: "UFW - Deny routed"
+      ufw:
+        direction: routed
+        policy: deny
+    - name: "UFW - Enable and deny by default"
+      ufw:
+        state: enabled
