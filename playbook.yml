@@ -8,7 +8,7 @@
     - vars/default.yml
 
   tasks:
-  
+
     - name: Install Prerequisites
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'aptitude' ]
@@ -79,7 +79,7 @@
         rule: allow
         port: "{{ https_port }}"
         proto: tcp
-      - name: "UFW - Allow BookStack port on {{ bookstack_port }}"
+    - name: "UFW - Allow BookStack port on {{ bookstack_port }}"
       ufw:
         rule: allow
         port: "{{ bookstack_port }}"
