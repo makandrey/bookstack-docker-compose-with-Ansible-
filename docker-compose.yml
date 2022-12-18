@@ -17,8 +17,8 @@ services:
     volumes:
       - ${PWD}/bk_config:/config
     ports:
-      - 6876:80
-      - "127.0.0.1:6875:80"
+      - 6875:80
+      #- "127.0.0.1:6875:80"
     depends_on:
       - bookstack_db
     networks:
