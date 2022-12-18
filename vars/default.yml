@@ -4,4 +4,4 @@ http_port: "80"
 ssh_port: "22"
 https_port: "443"
 lsb_release: focal
-project_dir: /bookstack
+project_dir: /bookstack/
