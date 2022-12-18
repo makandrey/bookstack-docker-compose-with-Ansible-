@@ -55,7 +55,7 @@
         state: directory 
         owner: bookstack 
         group: bookstack 
-        mode: 0770
+        mode: 0775
 
     - name: Copy Project Files
       copy:
@@ -63,7 +63,7 @@
         dest: /bookstack/{{ item }}
       loop:
       - docker-compose.yml
-      - mnt
+      - mnt/nginx/*
 
     - name: Tear down existing services
       community.docker.docker_compose:
