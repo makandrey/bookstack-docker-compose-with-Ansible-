@@ -63,7 +63,7 @@
         dest: /bookstack/{{ item }}
       loop:
       - docker-compose.yml
-      - mnt/nginx/*
+      - mnt/nginx/
 
     - name: Tear down existing services
       community.docker.docker_compose:
