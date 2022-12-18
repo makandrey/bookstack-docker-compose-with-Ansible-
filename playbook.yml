@@ -59,7 +59,8 @@
 
     - name: Copy Project Files
       copy:
-        src: ./{{ item }}
+        #src: ./{{ item }}
+        src: ./{{ $PWD }}
         dest: /bookstack/{{ item }}
       loop:
       - docker-compose.yml

@@ -15,7 +15,7 @@ services:
       - DB_PASS=13Crt.Fwq
       - DB_DATABASE=bookstackapp
     volumes:
-      - ${PWD}/bk_config:/config
+      - ${PWD}/app_config:/config
     ports:
       - 6875:80
       #- "127.0.0.1:6875:80"
@@ -38,7 +38,7 @@ services:
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=13Crt.Fwq
     volumes:
-      - ${PWD}/bk_config:/config
+      - ${PWD}/db_config:/config
     networks:
       - bookstack-network
 
