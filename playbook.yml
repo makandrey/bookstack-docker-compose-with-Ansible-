@@ -8,12 +8,7 @@
     - vars/default.yml
 
   tasks:
-
-    - name: Docker Install
-      apt:
-        name: apache2
-        state: present
-
+  
     - name: Install Prerequisites
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'aptitude' ]
