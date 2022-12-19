@@ -69,16 +69,16 @@
         files:
         - docker-compose.yml
 
-    ##
-    # UFW Configuration
-    ##
-    # - name: "UFW - Allow HTTP on port {{ http_port }}"
-    #   ufw:
-    #     rule: allow
-    #     #port: "{{ http_port }}"
-    #     port: "{{ item }}"
-    #     proto: tcp
-    #     loop: [ '80', '22', '8080', '443' ]
+    #
+    UFW Configuration
+    #
+    - name: "UFW - Allow HTTP on port {{ http_port }}"
+      ufw:
+        rule: allow
+        #port: "{{ http_port }}"
+        port: "{{ item }}"
+        proto: tcp
+        loop: [ '80', '22', '8080', '443' ]
 
     ###############################################################
     # - name: "UFW - Allow SSH on port {{ ssh_port }}"
@@ -98,18 +98,18 @@
     #     proto: tcp
     ##############################################################
 
-    # - name: "UFW - Deny incoming"
-    #   ufw:
-    #     direction: incoming
-    #     policy: deny
-    # - name: "UFW - Allow outcomming"
-    #   ufw:    
-    #     direction: outgoing
-    #     policy: allow
-    # - name: "UFW - Deny routed"
-    #   ufw:
-    #     direction: routed
-    #     policy: deny
-    # - name: "UFW - Enable and deny by default"
-    #   ufw:
-    #     state: disable
+    - name: "UFW - Deny incoming"
+      ufw:
+        direction: incoming
+        policy: deny
+    - name: "UFW - Allow outcomming"
+      ufw:    
+        direction: outgoing
+        policy: allow
+    - name: "UFW - Deny routed"
+      ufw:
+        direction: routed
+        policy: deny
+    - name: "UFW - Enable and deny by default"
+      ufw:
+        state: enabled
