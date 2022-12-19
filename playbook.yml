@@ -34,25 +34,25 @@
       apt: name={{ item }} update_cache=yes state=latest
       loop: [ 'docker-ce', 'docker-compose' ]
 
-    - name: Ensure group "bookstack" with correct gid
-      group:
-        name: bookstack
-        state: present
-        gid: 3000
+#    - name: Ensure group "bookstack" with correct gid
+#      group:
+#        name: bookstack
+#        state: present
+#        gid: 3000
 
-    # Add user for BookStack service
-    - name: Add user for BookStack service
-      user: 
-        name: bookstack
-        uid: 3000
-        shell: /bin/false
-        state: present
-        group: bookstack
+#    # Add user for BookStack service
+#    - name: Add user for BookStack service
+#      user: 
+#        name: bookstack
+#        uid: 3000
+#        shell: /bin/false
+#        state: present
+#        group: bookstack
 
     # Create ./mnt/bookstack/config directory
     - name: Create /bookstack/ directory
       file:
-        dest: /bookstack/
+        dest: {{ project_root_dir }}
         state: directory 
         owner: bookstack 
         group: bookstack 
