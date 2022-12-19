@@ -9,16 +9,7 @@
     - ansible_vars/default.yml
 
   tasks:
-  ###
-    - name: Distribution
-      debug: msg="{{ ansible_distribution }}"
-    - name: Distribution version
-      debug: msg="{{ ansible_distribution_version}}"
-    - name: Distribution major version
-      debug: msg="{{ ansible_distribution_major_version }}"
-    - name: "Ansible | Print 'lsb_release'"
-      debug: msg="{{ ansible_distribution_release }}"
-  ###
+
     - name: Install Prerequisites
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'aptitude' ]
@@ -36,7 +27,7 @@
 
     - name: Add Docker Repository
       apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu {{ lsb_release }} stable
+        repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
         state: present
 
     - name: Update apt and install docker-ce
@@ -131,4 +122,4 @@
         policy: deny
     - name: "UFW - Enable and deny by default"
       ufw:
-        state: disabled
+        state: enable
