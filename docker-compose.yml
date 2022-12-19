@@ -1,24 +1,20 @@
 ---
 version: '3'
 services:
-  # BookStack
+
+  # App BookStack
   bookstack:
-    image: lscr.io/linuxserver/bookstack
+    image: solidnerd/bookstack:22.04
     container_name: bookstack
     restart: unless-stopped
     environment:
-      - PUID=3000
-      - PGID=3000
-#      - APP_URL=
-      - DB_HOST=bookstack_db
-      - DB_USER=bookstack
-      - DB_PASS=13Crt.Fwq
-      - DB_DATABASE=bookstackapp
-    volumes:
-      - ./app_config:/config
+      - DB_HOST=bookstack_db:3306
+      - DB_DATABASE=bookstack
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=secret
+      - APP_URL=http://192.168.0.70:8080
     ports:
-      - 6875:80
-      #- "127.0.0.1:6875:80"
+      - 8080:8080
     depends_on:
       - bookstack_db
     networks:
@@ -26,36 +22,31 @@ services:
 
   # DB BookStack
   bookstack_db:
-    image: lscr.io/linuxserver/mariadb
+    image: mysql:5.7.21
     container_name: bookstack_db
     restart: unless-stopped
     environment:
-      - PUID=3000
-      - PGID=3000
-      - MYSQL_ROOT_PASSWORD=35Tlo.Grt
-      - TZ=Asia/Krasnoyarsk
-      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=bookstack
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=13Crt.Fwq
-    volumes:
-      - ./db_config:/config
+      - MYSQL_PASSWORD=secret
     networks:
       - bookstack-network
 
-  # Nginx
-  nginx:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    #tty: true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /bookstack/nginx/sites-enabled/:/etc/nginx/conf.d/
-      - /bookstack/nginx/nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - bookstack-network
+#  # Nginx
+#  nginx:
+#    image: nginx:alpine
+#    container_name: webserver
+#    restart: unless-stopped
+#    #tty: true
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - /bookstack/nginx/sites-enabled/:/etc/nginx/conf.d/
+#      - /bookstack/nginx/nginx.conf:/etc/nginx/nginx.conf
+#    networks:
+#      - bookstack-network
 
 #Docker Networks
 networks:
