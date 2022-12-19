@@ -34,7 +34,7 @@ services:
       - bookstack-network
 
   # Nginx
-  nginx:
+  webserver:
     image: nginx:alpine
     container_name: webserver
     restart: unless-stopped
