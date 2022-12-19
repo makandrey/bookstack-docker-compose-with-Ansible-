@@ -1,6 +1,5 @@
 ---
-bookstack_port: "6875"
 http_port: "80"
-ssh_port: "22"
 https_port: "443"
+ssh_port: "22"
 project_root_dir: "/bookstack/"
