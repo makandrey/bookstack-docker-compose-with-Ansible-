@@ -30,6 +30,8 @@ services:
       - MYSQL_DATABASE=bookstack
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=secret
+    volumes:
+      - /bookstack/data:/var/lib/mysql
     networks:
       - bookstack-network
 
