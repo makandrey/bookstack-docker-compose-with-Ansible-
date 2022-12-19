@@ -4,11 +4,19 @@
 ---
 - hosts: bookstack
   become: true
+  gather_facts: yes
   vars_files:
-    - vars/default.yml
+    - ansible_vars/default.yml
 
   tasks:
-
+  ###
+    - name: Distribution
+      debug: msg="{{ ansible_distribution }}"
+    - name: Distribution version
+      debug: msg="{{ ansible_distribution_version}}"
+    - name: Distribution major version
+      debug: msg="{{ ansible_distribution_major_version }}"
+  ###
     - name: Install Prerequisites
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'aptitude' ]
@@ -17,7 +25,7 @@
       apt: name={{ item }} state=latest update_cache=yes
       loop: ['apt-transport-https', 'ca-certificates', 'curl', 
       'software-properties-common', 'python3-pip', 'virtualenv',
-      'python3-setuptools', 'python3-pip', 'sshpass']
+      'python3-setuptools', 'sshpass']
     
     - name: Add Docker GPG apt Key
       apt_key:
