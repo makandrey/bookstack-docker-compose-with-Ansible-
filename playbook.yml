@@ -100,10 +100,10 @@
       ufw:
         direction: incoming
         policy: deny
-    - name: "UFW - Deny routed"
-      ufw:
-        direction: routed
-        policy: deny
+    # - name: "UFW - Deny routed"
+    #   ufw:
+    #     direction: routed
+    #     policy: deny
     - name: "UFW - Enable and deny by default"
       ufw:
         state: enabled
