@@ -3,5 +3,5 @@ bookstack_port: "6875"
 http_port: "80"
 ssh_port: "22"
 https_port: "443"
-lsb_release: focal
-project_root_dir: /bookstack/
+lsb_release: "focal"
+project_root_dir: "/bookstack/"

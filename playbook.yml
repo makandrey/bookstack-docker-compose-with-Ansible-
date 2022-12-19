@@ -49,29 +49,30 @@
 #        state: present
 #        group: bookstack
 
-    # Create ./mnt/bookstack/config directory
-    - name: Create /bookstack/ directory
-      file:
-        dest: {{ project_root_dir }}
+    # Create project_root_dir directory
+    - name: Create {{ project_root_dir }} directory
+      file: 
+        dest: "{{ project_root_dir }}"
         state: directory 
         owner: bookstack 
         group: bookstack 
         mode: 0775
-
+    
+    # Copy docker-compose.yml
     - name: Copy Project Files
       copy:
-        #src: ./{{ item }}
-        src: ./{{ $PWD }}
-        dest: /bookstack/{{ item }}
+        src: "./{{ item }}"
+        dest: "{{ project_root_dir }}{{ item }}"
       loop:
       - docker-compose.yml
-    
-    - name: Copy Project Files
-      copy:
-        src: ./{{ item }}
-        dest: /bookstack/{{ item }}
-      loop:
       - nginx/
+    
+#    - name: Copy Project Files
+#      copy:
+#        src: ./{{ item }}
+#        dest: /bookstack/{{ item }}
+#      loop:
+#      - nginx/
 
     - name: Tear down existing services
       community.docker.docker_compose:
