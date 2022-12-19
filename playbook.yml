@@ -69,9 +69,9 @@
         files:
         - docker-compose.yml
 
-    #
-    UFW Configuration
-    #
+    ##
+    #UFW Configuration
+    ##
     - name: "UFW - Allow HTTP on port {{ http_port }}"
       ufw:
         rule: allow
