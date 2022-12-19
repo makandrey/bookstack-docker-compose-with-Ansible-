@@ -41,7 +41,6 @@ services:
     #tty: true
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - /bookstack/nginx/conf.d/:/etc/nginx/conf.d/
       - /bookstack/nginx/nginx.conf:/etc/nginx/nginx.conf
