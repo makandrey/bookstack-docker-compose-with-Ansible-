@@ -12,9 +12,9 @@ services:
       - DB_DATABASE=bookstack
       - DB_USERNAME=bookstack
       - DB_PASSWORD=secret
-      - APP_URL=http://127.0.0.1:8080
-    ports:
-      - 8080:8080
+      - APP_URL=http://bookstack:8080
+    #ports:
+    #  - 8080:8080
     depends_on:
       - bookstack_db
     networks:
