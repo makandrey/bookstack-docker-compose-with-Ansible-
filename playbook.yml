@@ -13,14 +13,14 @@
     - name: Install Prerequisites
       apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
       loop: [ 'aptitude' ]
-    
+
     # Install required system packages
     - name: Install required system packages
       apt: name={{ item }} state=latest update_cache=yes
-      loop: ['apt-transport-https', 'ca-certificates', 'curl', 
+      loop: ['apt-transport-https', 'ca-certificates', 'curl',
       'software-properties-common', 'python3-pip', 'virtualenv',
       'python3-setuptools', 'sshpass']
-    
+
     # Add Docker GPG apt Key
     - name: Add Docker GPG apt Key
       apt_key:
@@ -40,9 +40,9 @@
 
     # Create project_root_dir directory
     - name: Create {{ project_root_dir }} directory
-      file: 
+      file:
         dest: "{{ project_root_dir }}"
-        state: directory 
+        state: directory
         owner: root
         group: root
         mode: 0775
@@ -55,7 +55,7 @@
       loop:
       - docker-compose.yml
       - nginx/
-    
+
     # Tear down existing services
     - name: Tear down existing services
       community.docker.docker_compose:
@@ -69,43 +69,37 @@
         files:
         - docker-compose.yml
 
-    ##
-    #UFW Configuration
-    ##
+    ##############################################################
+    # UFW Configuration
+    ##############################################################
     - name: "UFW - Allow HTTP on port {{ http_port }}"
       ufw:
         rule: allow
-        #port: "{{ http_port }}"
-        port: "{{ item }}"
+        port: "{{ http_port }}"
         proto: tcp
-        loop: [ '80', '22', '8080', '443' ]
-
-    ###############################################################
-    # - name: "UFW - Allow SSH on port {{ ssh_port }}"
-    #   ufw:
-    #     rule: allow
-    #     port: "{{ ssh_port }}"
-    #     proto: tcp
-    # - name: "UFW - Allow HTTPS on port {{ https_port }}"
-    #   ufw:
-    #     rule: allow
-    #     port: "{{ https_port }}"
-    #     proto: tcp
-    # - name: "UFW - Allow BookStack port on {{ bookstack_port }}"
-    #   ufw:
-    #     rule: allow
-    #     port: "{{ bookstack_port }}"
-    #     proto: tcp
-    ##############################################################
-
+    - name: "UFW - Allow SSH on port {{ ssh_port }}"
+      ufw:
+        rule: allow
+        port: "{{ ssh_port }}"
+        proto: tcp
+    - name: "UFW - Allow HTTPS on port {{ https_port }}"
+      ufw:
+        rule: allow
+        port: "{{ https_port }}"
+        proto: tcp
+    - name: "UFW - Allow BookStack port on {{ bookstack_port }}"
+      ufw:
+        rule: allow
+        port: "{{ bookstack_port }}"
+        proto: tcp
+    - name: "UFW - Allow outcomming"
+      ufw:
+        direction: outgoing
+        policy: allow
     - name: "UFW - Deny incoming"
       ufw:
         direction: incoming
         policy: deny
-    - name: "UFW - Allow outcomming"
-      ufw:    
-        direction: outgoing
-        policy: allow
     - name: "UFW - Deny routed"
       ufw:
         direction: routed
