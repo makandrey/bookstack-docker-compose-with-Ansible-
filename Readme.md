@@ -9,11 +9,11 @@
 ```
 cd bookstack-docker-compose-with-ansible
 sudo apt install python3-pip sshpass -y
-pip install virtualenv
+sudo pip install virtualenv
 virtualenv --version
-virtualenv -p python3 .
-source ./bin/activate
-pip install ansible
+sudo virtualenv -p python3 .
+sudo source ./bin/activate
+sudo pip install ansible
 ```
 ## Запустить playbook от пользователя из группы sudo
 ```
