@@ -1,17 +1,19 @@
-## Склонировать репозиторий в целевой каталог
-```
-git clone https://github.com/makandrey/bookstack-docker-compose-with-ansible.git
-```
-## Создать виртуальное окружение Python для Ansible
+# Развертывание BookStack в Docker-Compose через Ansible
+
+## В файле docker-compose.yml:
+1. Задать имя сервера через переменную "APP_URL". Например: **APP_URL=http://192.168.0.71:80**. 
+2. Задать учетные данные для БД.
+
+
+## Создать виртуальное окружение Python и установить Ansible
 ```
 cd bookstack-docker-compose-with-ansible
-sudo apt install python3-pip -y
+sudo apt install python3-pip sshpass -y
 pip install virtualenv
 virtualenv --version
 virtualenv -p python3 .
 source ./bin/activate
 pip install ansible
-sudo apt install sshpass
 ```
 ## Запустить playbook от пользователя из группы sudo
 ```
