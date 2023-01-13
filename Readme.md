@@ -13,7 +13,7 @@ sudo apt install python3-pip sshpass -y
 sudo pip install virtualenv
 virtualenv --version
 sudo virtualenv -p python3 .
-sudo source ./bin/activate
+source ./bin/activate
 sudo pip install ansible
 ```
 ## Запустить playbook от пользователя из группы sudo
