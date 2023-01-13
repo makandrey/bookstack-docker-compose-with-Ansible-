@@ -3,4 +3,5 @@ http_port: "80"
 bookstack_port: "8080"
 https_port: "443"
 ssh_port: "22"
+mattermost_port: 4000
 project_root_dir: "/bookstack/"

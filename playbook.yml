@@ -68,6 +68,7 @@
         project_src: "{{ project_root_dir }}"
         files:
         - docker-compose.yml
+        - docker-compose-mm.yml
 
     ##############################################################
     # UFW Configuration
@@ -91,6 +92,11 @@
       ufw:
         rule: allow
         port: "{{ bookstack_port }}"
+        proto: tcp
+    - name: "UFW - Allow MatterMost port on {{ bookstack_port }}"
+      ufw:
+        rule: allow
+        port: "{{ mattermost_port }}"
         proto: tcp
     - name: "UFW - Allow outcomming"
       ufw:
