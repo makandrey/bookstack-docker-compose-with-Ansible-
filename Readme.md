@@ -1,4 +1,4 @@
-# Развертывание BookStack в Docker-Compose через Ansible
+# Развертывание BookStack и Mattermost в Docker-Compose через Ansible
 
 ## В файле docker-compose.yml:
 1. Задать имя сервера через переменную "APP_URL". Например: **APP_URL=http://192.168.0.71:80**. 
