@@ -8,6 +8,7 @@
 ## Создать виртуальное окружение Python и установить Ansible
 ```
 cd bookstack-docker-compose-with-ansible
+sudo apt update
 sudo apt install python3-pip sshpass -y
 sudo pip install virtualenv
 virtualenv --version
