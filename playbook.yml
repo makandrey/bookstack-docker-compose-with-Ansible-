@@ -90,6 +90,8 @@
     - name: Tear down existing services (Mattermost)
       community.docker.docker_compose:
         project_src: "{{ mattermost_dir }}"
+        files:
+        - docker-compose-mm.yml
         state: absent
 
     # Deploy Docker Compose stack
